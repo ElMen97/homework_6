@@ -1,23 +1,35 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.data.UserInfo;
+import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.$;
 
 public class VerificationPage {
-    private SelenideElement codeInput = $x("//span[@data-test-id='code']//input");
-    private SelenideElement verifyButton = $x("//button[@data-test-id='action-verify']");
+    private SelenideElement codeField = $("[data-test-id=code] input");
+    private SelenideElement verifyButton = $("[data-test-id=action-verify]");
+    private SelenideElement errorMassage = $("[data-test-id='error-notification']");
 
     public VerificationPage() {
-        codeInput.should(visible);
-        verifyButton.should(visible);
+        codeField.shouldBe(visible);
     }
 
-    public CardBalancePage verify(UserInfo user) {
-        codeInput.val(user.getVerificationCode());
+    public void getErrorMassage(String textError) {
+        errorMassage
+                .shouldHave(Condition.text(textError))
+                .shouldBe(visible);
+    }
+
+    public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
+        codeField.setValue(verificationCode.getCode());
         verifyButton.click();
-        return new CardBalancePage();
+        return new DashboardPage();
+    }
+
+    public void invalidVerify(DataHelper.VerificationCode invalidVerificationCode) {
+        codeField.setValue(invalidVerificationCode.getCode());
+        verifyButton.click();
     }
 }
