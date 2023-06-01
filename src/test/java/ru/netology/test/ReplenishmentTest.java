@@ -46,7 +46,7 @@ class ReplenishmentTest {
     }
 
     @Test
-    void authByInvalidLoginAndPassword() {                                      /*    TODO Тест с ошибкой */
+    void authByInvalidLoginAndPassword() {
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getOtherAuthInfo();
         loginPage.invalidLoginOrPassword(authInfo);
@@ -93,14 +93,14 @@ class ReplenishmentTest {
     }
 
     @Test
-    void replenishmentOfCard0001IfThereIsNotEnoughMoneyOnCard0002() {               /*    TODO Тест с ошибкой */
+    void replenishmentOfCard0001IfThereIsNotEnoughMoneyOnCard0002() {
         var mainPage = mainPage();
         balanceCard0001 = mainPage.getCardBalance("0001");
         balanceCard0002 = mainPage.getCardBalance("0002");
         var transfer = mainPage.replenishCard0001();
 
         transfer.transfer(100000, DataHelper.cardNumber("0001"));
-        transfer.getErrorMassage("Ошибка! На карте **** **** **** 0001 не достаточно денег");
+        transfer.getErrorMassage("Ошибка! На карте **** **** **** 0001 не достаточно средств");
 
         actualBalanceCard0001 = mainPage().getCardBalance("0001");
         actualBalanceCard0002 = mainPage().getCardBalance("0002");
