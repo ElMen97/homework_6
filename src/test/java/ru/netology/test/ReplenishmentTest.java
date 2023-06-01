@@ -84,12 +84,12 @@ class ReplenishmentTest {
         balanceCard0002 = mainPage.getCardBalance("0002");
         var transfer = mainPage.replenishCard0002();
 
-        transfer.transfer(500, DataHelper.cardNumber("0002"));
+        transfer.transfer(5000, DataHelper.cardNumber("0002"));
         actualBalanceCard0001 = mainPage.getCardBalance("0001");
         actualBalanceCard0002 = mainPage.getCardBalance("0002");
 
-        Assertions.assertEquals(balanceCard0001 - 500, actualBalanceCard0001);
-        Assertions.assertEquals(balanceCard0002 + 500, actualBalanceCard0002);
+        Assertions.assertEquals(balanceCard0001 - 5000, actualBalanceCard0001);
+        Assertions.assertEquals(balanceCard0002 + 5000, actualBalanceCard0002);
     }
 
     @Test
